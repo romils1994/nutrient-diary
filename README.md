@@ -64,5 +64,6 @@ unitName: mg
 - Business Analyst: Meera Nair
 
 ## Weekly Meeting
-Saturday at 9 am in Lindner Hall
+Saturday at 9 am in Lindner Hall  
+
 Wednesday at 11 am on Teams
