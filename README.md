@@ -49,7 +49,7 @@ Upon identifying the food item, we can lookup nutrition details.
 Food Item's nutrition data are available and accessible.
 
 #### Examples
-1.1
+2.1
 Given a food item and nutrient data is available  
 
 When a food item is detected  
