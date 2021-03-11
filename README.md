@@ -50,7 +50,9 @@ Food Item's nutrition data are available and accessible.
 
 #### Examples
 1.1
-Given a food item is detected  
+Given a food item and nutrient data is available  
+
+When a food item is detected  
 
 We can lookup the nutrient data of food item  
 
