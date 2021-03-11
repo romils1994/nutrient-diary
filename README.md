@@ -54,8 +54,9 @@ amount: 0.53
 unitName: mg
 
 ## Data Sources
-[Google Cloud Vision API]{https://cloud.google.com/vision}
-[Food Data Central]{https://fdc.nal.usda.gov/}
+[Google Cloud Vision API](https://cloud.google.com/vision)  
+
+[Food Data Central](https://fdc.nal.usda.gov/)
 
 ## Team Composition
 - Backend Developer: Romil Shah
