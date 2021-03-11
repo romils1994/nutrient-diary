@@ -30,10 +30,14 @@ Food Items data are available and accessible.
 #### Examples
 1.1
 Given a feed of food item data is available  
-When I take a snap of "Apple"
-Then I should receive atleast one result with object as "Apple" with confidence greater than 0.8(threshhold)
-name: Apple
-score: 0.9
+
+When I take a snap of "Apple"  
+
+Then I should receive atleast one result with object as "Apple" with confidence greater than 0.8(threshhold)  
+
+name: Apple  
+
+score: 0.9  
 
 ### Requirement 2: Lookup for the Nutrients of Food
 
@@ -47,11 +51,16 @@ Food Item's nutrition data are available and accessible.
 #### Examples
 1.1
 Given a food item is detected  
-We can lookup the nutrient data of food item
-Then I should receive the nutrient data of that food item with following details
-name: Iron, Fe
-amount: 0.53
-unitName: mg
+
+We can lookup the nutrient data of food item  
+
+Then I should receive the nutrient data of that food item with following details  
+
+name: Iron, Fe  
+
+amount: 0.53  
+
+unitName: mg  
 
 ## Data Sources
 [Google Cloud Vision API](https://cloud.google.com/vision)  
