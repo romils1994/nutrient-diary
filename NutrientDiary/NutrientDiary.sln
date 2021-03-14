@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nutrient Diary", "Nutrient Diary.csproj", "{3ECC7D81-777B-4D4F-9DF5-0E220F773C2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NutrientDiary", "NutrientDiary.csproj", "{3ECC7D81-777B-4D4F-9DF5-0E220F773C2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
