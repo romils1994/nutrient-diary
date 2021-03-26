@@ -7,29 +7,89 @@
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@ViewData["Title"] - Nutrient_Diary</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
     <!-- Webcam.min.js -->
     <script type="text/javascript" src="webcamjs/webcam.min.js"></script>
-
 </head>
 <body>
-    <!-- CSS -->
-    <style>
-        #my_camera {
-            width: 320px;
-            height: 240px;
-            border: 1px solid black;
-        }
-    </style>
-
-    <div id="my_camera"></div>
-    <input type=button value="Take Snapshot" onClick="take_snapshot()">
-
-    <div id="results"></div>
+    <!-- ======= Header ======= -->
 
 
+    <main id="main">
+        <section id="nutrient-details" class="nutrient-details">
+            <div class="container">
 
+                <div class="row gy-4 pt-5">
+
+                    <div class="col-lg-8">
+                        <div class="nutrient-details-slider swiper-container">
+                            <!---- camera content ----->
+                            <!-- CSS -->
+                            <style>
+                                #my_camera {
+                                    width: 320px;
+                                    height: 240px;
+                                    border: 1px solid black;
+                                }
+                            </style>
+
+                            <div id="my_camera"></div>
+                            <input type=button value="Take Snapshot" onClick="take_snapshot()">
+
+                            <div id="results"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="nutrient-info">
+                            <h3>Nutrient information</h3>
+                            <ul>
+                                <li><strong>Category</strong>: FRUIT</li>
+                                <li><strong>Product</strong>: STRAWBERRY</li>
+                                <li><strong>Date</strong>: 01 March, 2020</li>
+                                <li><strong>More Information</strong>: <a href="#">https://en.wikipedia.org/wiki/Nutrient</a></li>
+                            </ul>
+                        </div>
+                        <div class="nutrient-description">
+                            Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
+                            <p>
+                                Take or upload pictures of food you willing to eat.
+                            </p>
+                            <p>
+                                Record the portion sizes you willing to eat.
+                            </p>
+                            <p>
+                                Get the nutrient info of the food based on the portion.
+                            </p>
+                            <p>
+                                Use your web browser either on phone or desktop to get nutrient information. This helps you to stay Fit and Healthy .
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Portfolio Details Section -->
+
+    </main><!-- End #main -->
 
 </body>
 <!-- Configure a few settings and attach camera -->
@@ -43,14 +103,14 @@
     Webcam.attach('#my_camera');
 
 
-        function take_snapshot() {
+    function take_snapshot() {
 
-            // take snapshot and get image data
-            Webcam.snap(function (data_uri) {
-                // display results in page
-                document.getElementById('results').innerHTML =
-                    '<img src="' + data_uri + '"/>';
-            });
-        }
+        // take snapshot and get image data
+        Webcam.snap(function (data_uri) {
+            // display results in page
+            document.getElementById('results').innerHTML =
+                '<img src="' + data_uri + '"/>';
+        });
+    }
 </script>
 </html>
