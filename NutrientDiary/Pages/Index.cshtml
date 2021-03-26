@@ -51,8 +51,7 @@
                             </style>
 
                             <div id="my_camera"></div>
-                            <input type=button value="Take Snapshot" onClick="take_snapshot()">
-
+                            <button type="button" class="btn btn-success mt-1 text-right" onClick="take_snapshot()" value="Take Picture">Take Picture</button>
                             <div id="results"></div>
                         </div>
                     </div>
@@ -67,20 +66,21 @@
                                 <li><strong>More Information</strong>: <a href="#">https://en.wikipedia.org/wiki/Nutrient</a></li>
                             </ul>
                         </div>
-                        <div class="nutrient-description">
-                            Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
-                            <p>
+                        <div class="nutrient-description" style="font-size: 13px;">
+                            <p class="font-weight-bold font-italic text-capitalize">
+                                Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
+                           </p>
+                            <div class="alert alert-success">
                                 Take or upload pictures of food you willing to eat.
-                            </p>
-                            <p>
+                            </div>
+
+                            <div class="alert alert-info">
                                 Record the portion sizes you willing to eat.
-                            </p>
-                            <p>
+                            </div>
+
+                            <div class="alert alert-warning">
                                 Get the nutrient info of the food based on the portion.
-                            </p>
-                            <p>
-                                Use your web browser either on phone or desktop to get nutrient information. This helps you to stay Fit and Healthy .
-                            </p>
+                            </div>
                         </div>
                     </div>
 
@@ -98,7 +98,7 @@
         width: 320,
         height: 240,
         image_format: 'jpeg',
-        jpeg_quality: 90
+        jpeg_quality: 100
     });
     Webcam.attach('#my_camera');
 
