@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>@ViewData["Title"] - Nutrient_Diary</title>
+    <title>@ViewData["Title"] - Nutrient Diary</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -25,37 +25,26 @@
     <link href="~/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <!-- Webcam.min.js -->
-    <script type="text/javascript" src="webcamjs/webcam.min.js"></script>
 </head>
 <body>
     <!-- ======= Header ======= -->
-
-
     <main id="main">
         <section id="nutrient-details" class="nutrient-details">
             <div class="container">
-
                 <div class="row gy-4 pt-5">
-
-                    <div class="col-lg-8">
+                    <div class="col-lg-4">
                         <div class="nutrient-details-slider swiper-container">
-                            <!---- camera content ----->
-                            <!-- CSS -->
-                            <style>
-                                #my_camera {
-                                    width: 320px;
-                                    height: 240px;
-                                    border: 1px solid black;
-                                }
-                            </style>
-
                             <div id="my_camera"></div>
                             <button type="button" class="btn btn-success mt-1 text-right" onClick="take_snapshot()" value="Take Picture">Take Picture</button>
-                            <div id="results"></div>
                         </div>
                     </div>
-
+                    <div class="col-lg-4">
+                        <div id="results"></div>
+                        <form action="" method="post" class="form-inline text-center hide">
+                            <input type="hidden" asp-for="Base64Image" value=""/>
+                            <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage">Submit</button>
+                        </form>
+                    </div>
                     <div class="col-lg-4">
                         <div class="nutrient-info">
                             <h3>Nutrient information</h3>
@@ -92,25 +81,4 @@
     </main><!-- End #main -->
 
 </body>
-<!-- Configure a few settings and attach camera -->
-<script language="JavaScript">
-    Webcam.set({
-        width: 320,
-        height: 240,
-        image_format: 'jpeg',
-        jpeg_quality: 100
-    });
-    Webcam.attach('#my_camera');
-
-
-    function take_snapshot() {
-
-        // take snapshot and get image data
-        Webcam.snap(function (data_uri) {
-            // display results in page
-            document.getElementById('results').innerHTML =
-                '<img src="' + data_uri + '"/>';
-        });
-    }
-</script>
 </html>

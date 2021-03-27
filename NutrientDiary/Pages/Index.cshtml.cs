@@ -17,8 +17,12 @@ namespace NutrientDiary.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public string Base64Image { get; set; }
+
+        public void OnPost(string base64)
         {
+            Base64Image = base64;
+            String requestJson = "{​\"requests\":[{​\"features\":[{​\"maxResults\":5,\"type\":\"OBJECT_LOCALIZATION\"}​],\"image\":{​\"content\":\"" + Base64Image + "\"}​}​]}​";
 
         }
     }
