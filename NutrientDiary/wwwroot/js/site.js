@@ -7,16 +7,39 @@
 Webcam.attach('#my_camera');
 
 $(document).ready(function () {
-    $("#submitImage").hide();
+    $("#submitImage,#Base64Image").hide();
 });
 
-function take_snapshot() {
+function takeSnapshot() {
     // take snapshot and get image data
     Webcam.snap(function (dataUri) {
         // display results in page
-        document.getElementById('results').innerHTML =
-            '<img src="' + dataUri + '"/>';
+        if (!document.getElementById('imageprev'))
+            document.getElementById('results').innerHTML = '<img id="imageprev" class="img-fluid margin-top-42" src="' + dataUri + '"/>';
+        else
+            document.getElementById("imageprev").src = dataUri;
     });
-    document.getElementById("Base64Image").value = dataUri.replace(/^data:image\/[a-z]+;base64,/, "");
+    var base64Image = document.getElementById("imageprev").src;
+    document.getElementById("Base64Image").value = base64Image;
+    document.getElementById("imageSelector").value = "";
+    $("#submitImage").show();
+}
+
+function previewFile() {
+    const file = document.querySelector('input[type=file]').files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener("load", function () {
+        // convert image file to base64 string
+        if (!document.getElementById('imageprev'))
+            document.getElementById('results').innerHTML = '<img id="imageprev" class="img-fluid margin-top-42" src="' + reader.result + '"/>';
+        else
+            document.getElementById("imageprev").src = reader.result;
+        document.getElementById("Base64Image").value = reader.result;
+    }, false);
+
+    if (file) {
+        reader.readAsDataURL(file);
+    }
     $("#submitImage").show();
 }
