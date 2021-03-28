@@ -44,7 +44,7 @@ namespace NutrientDiary.Pages
                         {
                             new features()
                             {
-                                type= "OBJECT_LOCALIZATION",
+                                type = "OBJECT_LOCALIZATION",
                                 maxResults = 5
                             }
                         }
