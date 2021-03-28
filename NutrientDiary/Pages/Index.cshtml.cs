@@ -23,6 +23,8 @@ namespace NutrientDiary.Pages
 
         public string Base64Image { get; set; }
 
+        public List<string> Objects = new List<string>();
+
         public void OnPost(string base64image)
         {
             Base64Image = base64image;
@@ -42,7 +44,7 @@ namespace NutrientDiary.Pages
                         {
                             new features()
                             {
-                                type= "OBJECT_LOCALIZATION",
+                                type = "OBJECT_LOCALIZATION",
                                 maxResults = 5
                             }
                         }
