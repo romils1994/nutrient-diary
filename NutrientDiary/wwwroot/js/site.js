@@ -7,16 +7,19 @@
 Webcam.attach('#my_camera');
 
 $(document).ready(function () {
-    $("#submitImage").hide();
+    $("#submitImage,#Base64Image").hide();
 });
 
-function take_snapshot() {
+function takeSnapshot() {
     // take snapshot and get image data
     Webcam.snap(function (dataUri) {
         // display results in page
-        document.getElementById('results').innerHTML =
-            '<img src="' + dataUri + '"/>';
+        if (!document.getElementById('imageprev'))
+            document.getElementById('results').innerHTML = '<img id="imageprev" src="' + dataUri + '"/>';
+        else
+            document.getElementById("imageprev").src = dataUri;
     });
-    document.getElementById("Base64Image").value = dataUri.replace(/^data:image\/[a-z]+;base64,/, "");
+    var base64Image = document.getElementById("imageprev").src;
+    document.getElementById("Base64Image").value = base64Image;
     $("#submitImage").show();
 }

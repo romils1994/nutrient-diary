@@ -35,26 +35,34 @@
                     <div class="col-lg-4">
                         <div class="nutrient-details-slider swiper-container">
                             <div id="my_camera"></div>
-                            <button type="button" class="btn btn-success mt-1 text-right" onClick="take_snapshot()" value="Take Picture">Take Picture</button>
+                            <button type="button" class="btn btn-success mt-1 text-right" onClick="takeSnapshot()" value="Take Picture">Take Picture</button>
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <div id="results"></div>
-                        <form action="" method="post" class="form-inline text-center hide">
-                            <input type="hidden" asp-for="Base64Image" value=""/>
-                            <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage">Submit</button>
+                        <div id="results">
+                            @if (!String.IsNullOrEmpty(Model.Base64Image))
+                            {
+                                <img id="imageprev" src="@Model.Base64Image" />
+                            }
+                        </div>
+                        <form runat="server" method="post" class="form-inline text-center hide">
+                            <input type="text" asp-for="Base64Image" runat="server" class="hide"/>
+                            <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage" runat="server">Submit</button>
                         </form>
                     </div>
                     <div class="col-lg-4">
+                        @if (Model.Objects.Any())
+                        {
                         <div class="nutrient-info">
                             <h3>Nutrient information</h3>
                             <ul>
-                                <li><strong>Category</strong>: FRUIT</li>
-                                <li><strong>Product</strong>: STRAWBERRY</li>
-                                <li><strong>Date</strong>: 01 March, 2020</li>
-                                <li><strong>More Information</strong>: <a href="#">https://en.wikipedia.org/wiki/Nutrient</a></li>
+                                @foreach (var objectName in Model.Objects)
+                                {
+                                    <li><strong>Product</strong>: @objectName</li>
+                                }
                             </ul>
                         </div>
+                        }
                         <div class="nutrient-description" style="font-size: 13px;">
                             <p class="font-weight-bold font-italic text-capitalize">
                                 Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
