@@ -33,28 +33,23 @@
             <div class="container">
                 <div class="row gy-4 py-5">
                     <div class="col-lg-4">
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a data-toggle="tab" class="nav-link active" href="#capture-snapshot">Capture Snapshot</a>
-                            </li>
-                            <li class="nav-item">
-                                <a data-toggle="tab" class="nav-link" href="#browse-image">Browse Image</a>
-                            </li>
-                        </ul>
                         <div class="tab-content">
                             <div id="capture-snapshot" class="tab-pane in active">
                                 <div class="nutrient-details-slider swiper-container">
                                     <div id="my_camera"></div>
                                     <button type="button" class="btn btn-success mt-1 text-right" onClick="takeSnapshot()" value="Take Picture">Take Picture</button>
+
+
                                 </div>
-                            </div>
-                            <div id="browse-image" class="tab-pane fade">
-                                <label class="mt-2 btn btn-success" for="imageSelector">
-                                    <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
-                                    Select Image
-                                </label>
+
                             </div>
                         </div>
+
+                        <label class="btn btn-success mt-1 text-right" for="imageSelector" border-radius: 0;>
+                            <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
+                            Or, Select an Image
+                        </label>
+
                     </div>
 
                     <div class="col-lg-4">
