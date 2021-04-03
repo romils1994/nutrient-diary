@@ -11,6 +11,7 @@ $(document).ready(function () {
 });
 
 function takeSnapshot() {
+
     // take snapshot and get image data
     Webcam.snap(function (dataUri) {
         // display results in page

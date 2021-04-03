@@ -24,7 +24,11 @@ namespace NutrientDiary.Pages
         public string Base64Image { get; set; }
 
         public List<string> Objects = new List<string>();
-
+        public void OnGet()
+        {
+            int img_count = 1;
+            ViewData["img_count"] = img_count;
+        }
         public void OnPost(string base64image)
         {
             Base64Image = base64image;
@@ -51,7 +55,8 @@ namespace NutrientDiary.Pages
                     }
                 }
             };
-
+            int img_count = 0;
+            ViewData["img_count"] = img_count;
             String requestJson = JsonConvert.SerializeObject(visionAPIRequest);
             String apiKey = System.IO.File.ReadAllText("VisionAPIKey.txt");
             String url = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
@@ -63,13 +68,23 @@ namespace NutrientDiary.Pages
 
                 foreach (QuickType.Response responses in objectAnnotationResponse.Responses)
                 {
-                    foreach (QuickType.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
+                    if (responses.LocalizedObjectAnnotations is null)
                     {
-                        if (!Objects.Contains(localizedObject.Name))
-                        {
-                            Objects.Add(localizedObject.Name);
-                        }
+                        Objects.Add("Not Found");
                     }
+                    else
+                    {
+                        foreach (QuickType.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
+                        {
+                            if (!Objects.Contains(localizedObject.Name))
+                            {
+                                Objects.Add(localizedObject.Name);
+                            }
+                        }
+
+                    }
+                
+                   
                 }
             }
         }
