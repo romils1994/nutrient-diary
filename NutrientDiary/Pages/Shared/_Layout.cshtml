@@ -12,15 +12,15 @@
         <div class="container">
             <div class="header-container d-flex align-items-center justify-content-between">
                 <div class="logo">
-                    <h1 class="text-light"><a><span>Nutrient Diary</span></a></h1>
+                    <h1 class="text-light" ><a href="/index"><span>Nutrient Diary</span></a></h1>
                 </div>
 
                 <nav id="navbar" class="navbar">
                     <ul>
-                        <li><a class="nav-link scrollto ">Home</a></li>
-                        <li><a class="nav-link scrollto">About</a></li>
-                        <li><a class="nav-link scrollto">Contact</a></li>
-                        <li><a class="getstarted scrollto">Get Started</a></li>
+                        <li><a class="nav-link scrollto " href="/index">Home</a></li>
+                        <li><a class="nav-link scrollto" href="/missing">About</a></li>
+                        <li><a class="nav-link scrollto" href="/missing">Contact</a></li>
+                        <li><a class="getstarted scrollto" href="/missing">Get Started</a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav><!-- .navbar -->
@@ -43,7 +43,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Webcam.min.js -->
-    <script type="text/javascript" src="js/webcam.min.js"></script>
+    @*<script type="text/javascript" src="js/webcam.min.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

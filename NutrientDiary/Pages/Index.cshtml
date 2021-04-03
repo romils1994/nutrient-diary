@@ -2,11 +2,15 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    var img_count = ViewData["img_count"];
 }
-
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script type="text/javascript" src="js/webcam.min.js"></script>
 <!DOCTYPE html>
 
+
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -26,42 +30,49 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
 <body>
     <!-- ======= Header ======= -->
     <main id="main">
         <section id="nutrient-details" class="nutrient-details">
             <div class="container">
                 <div class="row gy-4 py-5">
-                    <div class="col-lg-4">
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a data-toggle="tab" class="nav-link active" href="#capture-snapshot">Capture Snapshot</a>
-                            </li>
-                            <li class="nav-item">
-                                <a data-toggle="tab" class="nav-link" href="#browse-image">Browse Image</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div id="capture-snapshot" class="tab-pane in active">
-                                <div class="nutrient-details-slider swiper-container">
-                                    <div id="my_camera"></div>
-                                    <button type="button" class="btn btn-success mt-1 text-right" onClick="takeSnapshot()" value="Take Picture">Take Picture</button>
+                    @{ if ((int)img_count == 1)
+                        {
+
+                            <div class="col-lg-4">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a data-toggle="tab" class="nav-link active" href="#capture-snapshot">Capture Snapshot</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-toggle="tab" class="nav-link" href="#browse-image">Browse Image</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="capture-snapshot" class="tab-pane in active">
+                                        <div class="nutrient-details-slider swiper-container">
+                                            <div id="my_camera"></div>
+                                            <button type="button" class="btn btn-success mt-1 text-right" onClick="takeSnapshot()" value="Take Picture">Take Picture</button>
+                                        </div>
+                                    </div>
+                                    <div id="browse-image" class="tab-pane fade">
+                                        <label class="mt-2 btn btn-success" for="imageSelector">
+                                            <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
+                                            Select Image
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                            <div id="browse-image" class="tab-pane fade">
-                                <label class="mt-2 btn btn-success" for="imageSelector">
-                                    <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
-                                    Select Image
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                    }
 
                     <div class="col-lg-4">
                         <div id="results">
                             @if (!String.IsNullOrEmpty(Model.Base64Image))
                             {
                                 <img id="imageprev" class="img-fluid margin-top-42" src="@Model.Base64Image" />
+
                             }
                         </div>
                         <form runat="server" method="post" class="form-inline text-center hide">
@@ -104,5 +115,6 @@
             </div>
         </section>
     </main>
+
 </body>
 </html>
