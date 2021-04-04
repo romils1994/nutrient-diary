@@ -4,7 +4,8 @@
     image_format: 'jpeg',
     jpeg_quality: 100
 });
-Webcam.attach('#my_camera');
+ // Check if webcam.min.js is loaded
+Webcam.attach('#my_camera')
 
 $(document).ready(function () {
     $("#submitImage,#Base64Image").hide();

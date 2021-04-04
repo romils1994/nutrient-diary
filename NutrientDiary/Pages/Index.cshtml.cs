@@ -25,6 +25,7 @@ namespace NutrientDiary.Pages
 
         public List<string> Objects = new List<string>();
 
+
         public void OnPost(string base64image)
         {
             Base64Image = base64image;
