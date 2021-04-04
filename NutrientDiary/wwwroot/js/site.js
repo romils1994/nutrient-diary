@@ -1,12 +1,12 @@
-﻿Webcam.set({
-    width: 320,
-    height: 240,
-    image_format: 'jpeg',
-    jpeg_quality: 100
-});
- // Check if webcam.min.js is loaded
-Webcam.attach('#my_camera')
-
+﻿if (typeof Webcam !== 'undefined') {
+    Webcam.set({
+        width: 320,
+        height: 240,
+        image_format: 'jpeg',
+        jpeg_quality: 100
+    });
+    Webcam.attach('#my_camera');
+}
 $(document).ready(function () {
     $("#submitImage,#Base64Image").hide();
 });

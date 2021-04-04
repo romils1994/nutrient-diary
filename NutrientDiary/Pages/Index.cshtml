@@ -71,17 +71,28 @@
                     </div>
 
                     <div class="col-lg-4">
-                        @if (Model.Objects.Any())
+                        @if (String.IsNullOrEmpty(Model.Error))
                         {
-                            <div class="nutrient-info margin-top-42">
-                                <h3>Nutrient information</h3>
+                        <div class="nutrient-info margin-top-42">
+                            <h3>Nutrient information</h3>
+                            @if (Model.Objects.Any())
+                            {
                                 <ul>
-                                    @foreach (var objectName in Model.Objects)
-                                    {
-                                        <li><strong>Product</strong>: @objectName</li>
-                                    }
+                                @foreach (var objectName in Model.Objects)
+                                {
+                                    <li><strong>Product</strong>: @objectName</li>
+                                }
                                 </ul>
+                            }
+                            else
+                            {
+                                <strong>No Product Detected</strong>
+                            }
                             </div>
+                        } 
+                        else
+                        {
+                            <strong>@Model.Error</strong>
                         }
                         <div class="nutrient-description" style="font-size: 13px;">
                             <p class="font-weight-bold font-italic text-capitalize">
