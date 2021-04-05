@@ -25,6 +25,14 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 42px;
 }
 
+.nutrientpanel {
+    align-content: center;
+    position: relative;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -530,6 +538,8 @@ h1, h2, h3, h4, h5, h6 {
 
     .nutrient-details .nutrient-description {
         padding-top: 30px;
+        text-align: center;
+
     }
 
         .nutrient-details .nutrient-description h2 {

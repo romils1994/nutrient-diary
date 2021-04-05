@@ -32,77 +32,77 @@
         <section id="nutrient-details" class="nutrient-details">
             <div class="container">
                 <div class="row gy-4 py-5">
-                    <div class="col-lg-4">
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a data-toggle="tab" class="nav-link active" href="#capture-snapshot">Capture Snapshot</a>
-                            </li>
-                            <li class="nav-item">
-                                <a data-toggle="tab" class="nav-link" href="#browse-image">Browse Image</a>
-                            </li>
-                        </ul>
+                    <div class="col-lg-6">
                         <div class="tab-content">
                             <div id="capture-snapshot" class="tab-pane in active">
                                 <div class="nutrient-details-slider swiper-container">
                                     <div id="my_camera"></div>
                                     <button type="button" class="btn btn-success mt-1 text-right" onClick="takeSnapshot()" value="Take Picture">Take Picture</button>
+
+
                                 </div>
-                            </div>
-                            <div id="browse-image" class="tab-pane fade">
-                                <label class="mt-2 btn btn-success" for="imageSelector">
-                                    <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
-                                    Select Image
-                                </label>
+
                             </div>
                         </div>
+                        <!-- Image Select Button -->
+                        <label class="btn btn-success mt-1 text-right" for="imageSelector" border-radius: 0;>
+                            <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
+                            Or, Select an Image
+                        </label>
+
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div id="results">
                             @if (!String.IsNullOrEmpty(Model.Base64Image))
                             {
-                                <img id="imageprev" class="img-fluid margin-top-42" src="@Model.Base64Image" />
+                                <img id="imageprev" src="@Model.Base64Image" />
                             }
                         </div>
+                        <!-- Picture Submission Button -->
                         <form runat="server" method="post" class="form-inline text-center hide">
                             <input type="text" asp-for="Base64Image" runat="server" class="hide" />
                             <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage" runat="server">Submit</button>
                         </form>
                     </div>
 
-                    <div class="col-lg-4">
-                        @if (Model.Objects.Any())
-                        {
-                            <div class="nutrient-info margin-top-42">
-                                <h3>Nutrient information</h3>
-                                <ul>
-                                    @foreach (var objectName in Model.Objects)
-                                    {
-                                        <li><strong>Product</strong>: @objectName</li>
-                                    }
-                                </ul>
-                            </div>
-                        }
-                        <div class="nutrient-description" style="font-size: 13px;">
-                            <p class="font-weight-bold font-italic text-capitalize">
-                                Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
-                            </p>
-                            <div class="alert alert-success">
-                                Take or upload pictures of food you willing to eat.
-                            </div>
 
-                            <div class="alert alert-info">
-                                Record the portion sizes you willing to eat.
-                            </div>
-
-                            <div class="alert alert-warning">
-                                Get the nutrient info of the food based on the portion.
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
+
+        <!--Nutrient panel starts !-->
+        <div class="nutrientpanel">
+            @if (Model.Objects.Any())
+            {
+                <div class="nutrient-info margin-top-42">
+                    <h3>Nutrient information</h3>
+                    <ul>
+                        @foreach (var objectName in Model.Objects)
+                        {
+                            <li><strong>Product</strong>: @objectName</li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="nutrient-description" style="font-size: 13px;">
+                <p class="font-weight-bold font-italic text-capitalize">
+                    Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
+                </p>
+                <div class="alert alert-success">
+                    Take or upload pictures of food you willing to eat.
+                </div>
+
+                <div class="alert alert-info">
+                    Record the portion sizes you willing to eat.
+                </div>
+
+                <div class="alert alert-warning">
+                    Get the nutrient info of the food based on the portion.
+                </div>
+            </div>
+        </div>
+        <!--Nutrient panel ends !-->
     </main>
 </body>
 </html>
