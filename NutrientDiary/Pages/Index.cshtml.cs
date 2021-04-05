@@ -27,15 +27,25 @@ namespace NutrientDiary.Pages
 
         public void OnPost(string base64image)
         {
-            Base64Image = base64image;
-            var imageParts = base64image.Split(',').ToList<string>();
-            
-            VisionAPIRequest visionAPIRequest = new VisionAPIRequest()
+            //adding try catch
+            try 
             {
-                requests = new List<requests>()
+                Base64Image = base64image;
+
+                var imageParts = base64image.Split(',').ToList<string>();
+                //to check if imageparts is null or empty 
+                if (imageParts == null || !imageParts.Any())
+                {
+                    throw new ArgumentException(" imageParts is NULL", nameof(imageParts));
+                }
+
+                VisionAPIRequest visionAPIRequest = new VisionAPIRequest()
+                {
+                    requests = new List<requests>()
                 {
                     new requests()
                     {
+                      
                         image = new image()
                         {
                             content = imageParts[1]
@@ -50,28 +60,48 @@ namespace NutrientDiary.Pages
                         }
                     }
                 }
-            };
+                };
 
-            String requestJson = JsonConvert.SerializeObject(visionAPIRequest);
-            String apiKey = System.IO.File.ReadAllText("VisionAPIKey.txt");
-            String url = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
-            using (var webClient = new WebClient())
-            {
-                webClient.Headers.Add("Content-Type", "application/json");
-                String response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(requestJson)));
-                QuickType.Objects objectAnnotationResponse = QuickType.Objects.FromJson(response);
-
-                foreach (QuickType.Response responses in objectAnnotationResponse.Responses)
+                String requestJson = JsonConvert.SerializeObject(visionAPIRequest);
+                String apiKey = System.IO.File.ReadAllText("VisionAPIKey.txt");
+                String url = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
+                using (var webClient = new WebClient())
                 {
-                    foreach (QuickType.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
+                    webClient.Headers.Add("Content-Type", "application/json");
+                    String response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(requestJson)));
+                    //Todo null check for response
+                    if (response == null)
                     {
-                        if (!Objects.Contains(localizedObject.Name))
+                        throw new ArgumentException("Response is NULL", nameof(response));
+
+                    }
+                    QuickType.Objects objectAnnotationResponse = QuickType.Objects.FromJson(response);
+
+                    //null check for objectAnnotationResponse
+                    if (objectAnnotationResponse == null )
+                    {
+                        throw new ArgumentException("objectAnnotationResponse is NULL", nameof(objectAnnotationResponse));
+
+                    }
+
+                    foreach (QuickType.Response responses in objectAnnotationResponse.Responses)
+                    {
+                        foreach (QuickType.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
                         {
-                            Objects.Add(localizedObject.Name);
+                            if (!Objects.Contains(localizedObject.Name))
+                            {
+                                Objects.Add(localizedObject.Name);
+                            }
                         }
                     }
                 }
             }
+         
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
     }
 }
