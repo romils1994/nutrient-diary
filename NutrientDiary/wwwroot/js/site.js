@@ -1,6 +1,6 @@
 ﻿Webcam.set({
-    width: 320,
-    height: 240,
+    width: 480,
+    height: 360,
     image_format: 'jpeg',
     jpeg_quality: 100
 });
@@ -15,7 +15,7 @@ function takeSnapshot() {
     Webcam.snap(function (dataUri) {
         // display results in page
         if (!document.getElementById('imageprev'))
-            document.getElementById('results').innerHTML = '<img id="imageprev" class="img-fluid margin-top-42" src="' + dataUri + '"/>';
+            document.getElementById('results').innerHTML = '<img id="imageprev" width="480" height="360" src="' + dataUri + '"/>';
         else
             document.getElementById("imageprev").src = dataUri;
     });
