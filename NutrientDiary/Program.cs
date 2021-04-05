@@ -13,7 +13,19 @@ namespace NutrientDiary
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            //Adding try catch for exception handling
+            try
+            {
+               //Todo- do we need to check if the argument is null?
+                    CreateHostBuilder(args).Build().Run();
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

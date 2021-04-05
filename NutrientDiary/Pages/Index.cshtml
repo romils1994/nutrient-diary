@@ -78,7 +78,12 @@
                                 <ul>
                                     @foreach (var objectName in Model.Objects)
                                     {
-                                        <li><strong>Product</strong>: @objectName</li>
+                                        //to display only those objects which are not null
+                                        @if (objectName != null)
+                                        {
+                                            <li><strong>Product</strong>: @objectName</li>
+                                        }
+
                                     }
                                 </ul>
                             </div>
