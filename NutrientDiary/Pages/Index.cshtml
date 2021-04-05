@@ -44,7 +44,7 @@
 
                             </div>
                         </div>
-
+                        <!-- Image Select Button -->
                         <label class="btn btn-success mt-1 text-right" for="imageSelector" border-radius: 0;>
                             <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
                             Or, Select an Image
@@ -59,6 +59,7 @@
                                 <img id="imageprev" src="@Model.Base64Image" />
                             }
                         </div>
+                        <!-- Picture Submission Button -->
                         <form runat="server" method="post" class="form-inline text-center hide">
                             <input type="text" asp-for="Base64Image" runat="server" class="hide" />
                             <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage" runat="server">Submit</button>
@@ -69,36 +70,39 @@
                 </div>
             </div>
         </section>
-            <div class="nutrientpanel" >
-                @if (Model.Objects.Any())
-                {
-                    <div class="nutrient-info margin-top-42">
-                        <h3>Nutrient information</h3>
-                        <ul>
-                            @foreach (var objectName in Model.Objects)
-                            {
-                                <li><strong>Product</strong>: @objectName</li>
-                            }
-                        </ul>
-                    </div>
-                }
-                <div class="nutrient-description" style="font-size: 13px;">
-                    <p class="font-weight-bold font-italic text-capitalize">
-                        Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
-                    </p>
-                    <div class="alert alert-success">
-                        Take or upload pictures of food you willing to eat.
-                    </div>
 
-                    <div class="alert alert-info">
-                        Record the portion sizes you willing to eat.
-                    </div>
+        <!--Nutrient panel starts !-->
+        <div class="nutrientpanel">
+            @if (Model.Objects.Any())
+            {
+                <div class="nutrient-info margin-top-42">
+                    <h3>Nutrient information</h3>
+                    <ul>
+                        @foreach (var objectName in Model.Objects)
+                        {
+                            <li><strong>Product</strong>: @objectName</li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="nutrient-description" style="font-size: 13px;">
+                <p class="font-weight-bold font-italic text-capitalize">
+                    Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
+                </p>
+                <div class="alert alert-success">
+                    Take or upload pictures of food you willing to eat.
+                </div>
 
-                    <div class="alert alert-warning">
-                        Get the nutrient info of the food based on the portion.
-                    </div>
+                <div class="alert alert-info">
+                    Record the portion sizes you willing to eat.
+                </div>
+
+                <div class="alert alert-warning">
+                    Get the nutrient info of the food based on the portion.
                 </div>
             </div>
+        </div>
+        <!--Nutrient panel ends !-->
     </main>
 </body>
 </html>
