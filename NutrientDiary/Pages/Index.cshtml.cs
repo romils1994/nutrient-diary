@@ -32,20 +32,20 @@ namespace NutrientDiary.Pages
             
             VisionAPIRequest visionAPIRequest = new VisionAPIRequest()
             {
-                requests = new List<requests>()
+                Requests = new List<Requests>()
                 {
-                    new requests()
+                    new Requests()
                     {
-                        image = new image()
+                        Image = new Image()
                         {
-                            content = imageParts[1]
+                            Content = imageParts[1]
                         },
-                        features = new List<features>()
+                        Features = new List<Features>()
                         {
-                            new features()
+                            new Features()
                             {
-                                type = "OBJECT_LOCALIZATION",
-                                maxResults = 5
+                                Type = "OBJECT_LOCALIZATION",
+                                MaxResults = 5
                             }
                         }
                     }
