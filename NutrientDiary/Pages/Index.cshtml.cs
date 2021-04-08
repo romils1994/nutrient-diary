@@ -52,13 +52,13 @@ namespace NutrientDiary.Pages
                 }
             };
 
-            String requestJson = JsonConvert.SerializeObject(visionAPIRequest);
-            String apiKey = System.IO.File.ReadAllText("VisionAPIKey.txt");
-            String url = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
+            String Request = JsonConvert.SerializeObject(visionAPIRequest);
+            String ApiKey = System.IO.File.ReadAllText("VisionAPIKey.txt");
+            String url = "https://vision.googleapis.com/v1/images:annotate?key=" + ApiKey;
             using (var webClient = new WebClient())
             {
                 webClient.Headers.Add("Content-Type", "application/json");
-                String response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(requestJson)));
+                String response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(Request)));
                 QuickType.Objects objectAnnotationResponse = QuickType.Objects.FromJson(response);
 
                 foreach (QuickType.Response responses in objectAnnotationResponse.Responses)
