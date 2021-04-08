@@ -1,27 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+
 
 namespace NutrientDiary
 {
     public class VisionAPIRequest
     {
-        public List<requests> requests { get; set; }
+        public List<Requests> Requests { get; set; }
     }
-    public class requests
+    public class Requests
     {
-        public image image { get; set; }
-        public List<features> features { get; set; }
+        public Image Image { get; set; }
+        public List<Features> Features { get; set; }
     }
 
-    public class image
+    public class Image
     {
-        public string content { get; set; }
+        public string Content { get; set; }
     }
-    public class features
+    public class Features
     {
-        public string type { get; set; }
-        public int maxResults { get; set; }
+        public string Type { get; set; }
+        public int MaxResults { get; set; }
     }
 }

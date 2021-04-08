@@ -68,6 +68,7 @@
                             <input type="text" asp-for="Base64Image" runat="server" class="hide" />
                             <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage" runat="server">Submit</button>
                         </form>
+                        
                     </div>
 
                     <div class="col-lg-4">
@@ -76,7 +77,7 @@
                             <div class="nutrient-info margin-top-42">
                                 <h3>Nutrient information</h3>
                                 <ul>
-                                    @foreach (var objectName in Model.Objects)
+                                    @foreach (string objectName in Model.Objects)
                                     {
                                         <li><strong>Product</strong>: @objectName</li>
                                     }

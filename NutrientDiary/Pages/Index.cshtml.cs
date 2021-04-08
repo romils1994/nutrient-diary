@@ -32,33 +32,33 @@ namespace NutrientDiary.Pages
             
             VisionAPIRequest visionAPIRequest = new VisionAPIRequest()
             {
-                requests = new List<requests>()
+                Requests = new List<Requests>()
                 {
-                    new requests()
+                    new Requests()
                     {
-                        image = new image()
+                        Image = new Image()
                         {
-                            content = imageParts[1]
+                            Content = imageParts[1]
                         },
-                        features = new List<features>()
+                        Features = new List<Features>()
                         {
-                            new features()
+                            new Features()
                             {
-                                type = "OBJECT_LOCALIZATION",
-                                maxResults = 5
+                                Type = "OBJECT_LOCALIZATION",
+                                MaxResults = 5
                             }
                         }
                     }
                 }
             };
 
-            String requestJson = JsonConvert.SerializeObject(visionAPIRequest);
-            String apiKey = System.IO.File.ReadAllText("VisionAPIKey.txt");
-            String url = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
+            String Request = JsonConvert.SerializeObject(visionAPIRequest);
+            String ApiKey = System.IO.File.ReadAllText("VisionAPIKey.txt");
+            String url = "https://vision.googleapis.com/v1/images:annotate?key=" + ApiKey;
             using (var webClient = new WebClient())
             {
                 webClient.Headers.Add("Content-Type", "application/json");
-                String response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(requestJson)));
+                String response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(Request)));
                 QuickType.Objects objectAnnotationResponse = QuickType.Objects.FromJson(response);
 
                 foreach (QuickType.Response responses in objectAnnotationResponse.Responses)
