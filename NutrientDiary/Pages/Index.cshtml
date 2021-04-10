@@ -71,32 +71,43 @@
                     </div>
 
                     <div class="col-lg-4">
-                        @if (Model.Objects.Any())
+                        @if (String.IsNullOrEmpty(Model.Error))
                         {
-                            <div class="nutrient-info margin-top-42">
-                                <h3>Nutrient information</h3>
+                        <div class="nutrient-info margin-top-42">
+                            <h3>Nutrient information</h3>
+                            @if (Model.Objects.Any())
+                            {
                                 <ul>
-                                    @foreach (var objectName in Model.Objects)
-                                    {
-                                        <li><strong>Product</strong>: @objectName</li>
-                                    }
+                                @foreach (var objectName in Model.Objects)
+                                {
+                                    <li><strong>Product</strong>: @objectName</li>
+                                }
                                 </ul>
+                            }
+                            else
+                            {
+                                <strong>No Product Detected</strong>
+                            }
                             </div>
+                        } 
+                        else
+                        {
+                            <strong>@Model.Error</strong>
                         }
                         <div class="nutrient-description" style="font-size: 13px;">
                             <p class="font-weight-bold font-italic text-capitalize">
                                 Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
                             </p>
                             <div class="alert alert-success">
-                                Take or upload pictures of food you willing to eat.
+                                <p>Take or upload pictures of food you willing to eat.</p>
                             </div>
 
                             <div class="alert alert-info">
-                                Record the portion sizes you willing to eat.
+                                <p>Record the portion sizes you willing to eat.</p>
                             </div>
 
                             <div class="alert alert-warning">
-                                Get the nutrient info of the food based on the portion.
+                                <p>Get the nutrient info of the food based on the portion.</p>
                             </div>
                         </div>
                     </div>

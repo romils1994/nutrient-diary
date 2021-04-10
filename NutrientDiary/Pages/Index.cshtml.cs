@@ -25,6 +25,10 @@ namespace NutrientDiary.Pages
 
         public List<string> Objects = new List<string>();
 
+        public string Error;
+
+        private const string FEATURE_TYPE = "OBJECT_LOCALIZATION";
+
         public void OnPost(string base64image)
         {
             Base64Image = base64image;
@@ -44,7 +48,7 @@ namespace NutrientDiary.Pages
                         {
                             new features()
                             {
-                                type = "OBJECT_LOCALIZATION",
+                                type = FEATURE_TYPE,
                                 maxResults = 5
                             }
                         }
@@ -52,24 +56,31 @@ namespace NutrientDiary.Pages
                 }
             };
 
-            String requestJson = JsonConvert.SerializeObject(visionAPIRequest);
+            String visionJson = JsonConvert.SerializeObject(visionAPIRequest);
             String apiKey = System.IO.File.ReadAllText("VisionAPIKey.txt");
             String url = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
             using (var webClient = new WebClient())
             {
                 webClient.Headers.Add("Content-Type", "application/json");
-                String response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(requestJson)));
-                QuickType.Objects objectAnnotationResponse = QuickType.Objects.FromJson(response);
-
-                foreach (QuickType.Response responses in objectAnnotationResponse.Responses)
+                try
                 {
-                    foreach (QuickType.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
+                    String response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(requestJson)));
+                    QuickType.Objects objectAnnotationResponse = QuickType.Objects.FromJson(response);
+
+                    foreach (QuickType.Response responses in objectAnnotationResponse.Responses)
                     {
-                        if (!Objects.Contains(localizedObject.Name))
+                        foreach (QuickType.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
                         {
-                            Objects.Add(localizedObject.Name);
+                            if (!Objects.Contains(localizedObject.Name))
+                            {
+                                Objects.Add(localizedObject.Name);
+                            }
                         }
                     }
+                } catch (Exception ex)
+                {
+                    Error = "Something went wrong! Could not reach the API Servers";
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
