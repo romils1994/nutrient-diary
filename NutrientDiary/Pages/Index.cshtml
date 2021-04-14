@@ -3,115 +3,100 @@
 @{
     ViewData["Title"] = "Home page";
 }
+
+<!DOCTYPE html>
+
+<html lang="en">
 <head>
-    <script type="text/javascript" src="js/webcam.min.js"></script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@ViewData["Title"] - Nutrient Diary</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<!-- ======= Header ======= -->
-<main id="main">
-    <section id="nutrient-details" class="nutrient-details">
-        <div class="container">
-            <div class="row gy-4">
-                <div class="col-lg-4">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a data-toggle="tab" class="nav-link active" href="#capture-snapshot">Capture Snapshot</a>
-                        </li>
-                        <li class="nav-item">
-                            <a data-toggle="tab" class="nav-link" href="#browse-image">Browse Image</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="capture-snapshot" class="tab-pane in active">
-                            <div class="nutrient-details-slider swiper-container">
-                                <div id="my_camera"></div>
-                                <button type="button" class="btn btn-success mt-1 text-right" onClick="takeSnapshot()" value="Take Picture">Take Picture</button>
+<body>
+    <!-- ======= Header ======= -->
+    <main id="main">
+        <section id="nutrient-details" class="nutrient-details">
+            <div class="container">
+                <div class="row gy-4 py-5">
+                    <div class="col-lg-4">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a data-toggle="tab" class="nav-link active" href="#capture-snapshot">Capture Snapshot</a>
+                            </li>
+                            <li class="nav-item">
+                                <a data-toggle="tab" class="nav-link" href="#browse-image">Browse Image</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="capture-snapshot" class="tab-pane in active">
+                                <div class="nutrient-details-slider swiper-container">
+                                    <div id="my_camera"></div>
+                                    <button type="button" class="btn btn-success mt-1 text-right" onClick="takeSnapshot()" value="Take Picture">Take Picture</button>
                                 </div>
                             </div>
-                        <div id="browse-image" class="tab-pane fade">
-                            <label class="mt-2 btn btn-success" for="imageSelector">
-                                <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
-                                Select Image
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4">
-                    <div id="results">
-                        @if (!String.IsNullOrEmpty(Model.Base64Image))
-                        {
-                            <img id="imageprev" class="img-fluid margin-top-42" src="@Model.Base64Image" />
-                        }
-                    </div>
-                    <form runat="server" method="post" class="form-inline text-center hide">
-                        <input type="text" asp-for="Base64Image" runat="server" class="hide" />
-                        <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage" runat="server">Submit</button>
-                    </form>
-                </div>
-
-                <div class="col-lg-4">
-                    <div class="nutrient-description" style="font-size: 13px;">
-                        <p class="font-weight-bold font-italic text-capitalize">
-                            Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
-                        </p>
-                        <div class="alert alert-success">
-                            <p>Take or upload pictures of food you willing to eat.</p>
-                        </div>
-
-                        <div class="alert alert-info">
-                            <p>Record the portion sizes you willing to eat.</p>
-                        </div>
-
-                        <div class="alert alert-warning">
-                            <p>Get the nutrient info of the food based on the portion.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-12">
-                    @if (String.IsNullOrEmpty(Model.Error) && Model.isPostBack)
-                    {
-                        <div class="nutrient-info margin-top-42">
-                            <h3>Nutrient information</h3>
-                            @if (Model.FoodDetails.Any())
-                            {
-                                <ul class="nav nav-tabs">
-                                @foreach (var foodDetail in Model.FoodDetails)
-                                {
-                                    String className = "";
-                                    if (Model.FoodDetails.First() == foodDetail)
-                                    {
-                                        className = "active";
-                                    }
-                                    String itemName = char.ToUpper(foodDetail.Description[0]) + foodDetail.Description.Substring(1);
-                                    <li class="nav-item">
-                                        <a href="#tab-@foodDetail.FdcId.ToString()" class="nav-link @className" data-toggle="tab">@itemName</a>
-                                    </li>
-                                }
-                                </ul>
-                            }
-                            else
-                            {
-                                <strong>No Product Detected</strong>
-                            }
+                            <div id="browse-image" class="tab-pane fade">
+                                <label class="mt-2 btn btn-success" for="imageSelector">
+                                    <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
+                                    Select Image
+                                </label>
                             </div>
-                        } 
-                        else
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div id="results">
+                            @if (!String.IsNullOrEmpty(Model.Base64Image))
+                            {
+                                <img id="imageprev" class="img-fluid margin-top-42" src="@Model.Base64Image" />
+                            }
+                        </div>
+                        <form runat="server" method="post" class="form-inline text-center hide">
+                            <input type="text" asp-for="Base64Image" runat="server" class="hide" />
+                            <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage" runat="server">Submit</button>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-4">
+                        @if (Model.Objects.Any())
                         {
-                            <strong>@Model.Error</strong>
+                            <div class="nutrient-info margin-top-42">
+                                <h3>Nutrient information</h3>
+                                <ul>
+                                    @foreach (var objectName in Model.Objects)
+                                    {
+                                        <li><strong>Product</strong>: @objectName</li>
+                                    }
+                                </ul>
+                            </div>
                         }
                         <div class="nutrient-description" style="font-size: 13px;">
                             <p class="font-weight-bold font-italic text-capitalize">
                                 Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
                             </p>
                             <div class="alert alert-success">
-                                <p>Take or upload pictures of food you willing to eat.</p>
+                                Take or upload pictures of food you willing to eat.
                             </div>
 
-                </div>
+                            <div class="alert alert-info">
+                                Record the portion sizes you willing to eat.
+                            </div>
 
                             <div class="alert alert-warning">
-                                <p>Get the nutrient info of the food based on the portion.</p>
+                                Get the nutrient info of the food based on the portion.
                             </div>
                         </div>
                     </div>
