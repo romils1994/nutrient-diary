@@ -7,8 +7,27 @@
     });
     Webcam.attach('#my_camera');
 }
+var foodDetails = {};
 $(document).ready(function () {
     $("#submitImage,#Base64Image").hide();
+
+    $(".nutrient-tabs a").click(function () {
+        $(this).tab('show');
+    });
+
+    $(function updateNutrientInfo() {
+        if ($("input[data-food-item]")) {
+            $("input[data-food-item]").each(function (key, val) {
+                var foodItem = $(this).data("food-item");
+                var foodNutrient = new Array();
+                $("table[data-fdc=" + foodItem + "] tbody").find('tr').each(function (key, val) {
+                    var td = $(this).find('td');
+                    foodNutrient[key] = td.eq(1).text();
+                });
+                foodDetails[foodItem] = foodNutrient;
+            });
+        }
+    });
 });
 
 function takeSnapshot() {
@@ -44,3 +63,18 @@ function previewFile() {
     }
     $("#submitImage").show();
 }
+
+$("input[name=portion]").change(function updateNutrientInfo() {
+    var foodItem = $(this).data("food-item");
+    var portionSize = $(this).val();
+
+    $("table[data-fdc=" + foodItem + "] tbody").find('tr').each(function (key, val) {
+        var td = $(this).find('td');
+        var initialAmount = foodDetails[foodItem][key];
+        var updAmount = ((portionSize / 100) * initialAmount).toFixed(2);
+        if (updAmount % 1 === 0) {
+            updAmount = updAmount.toFixed(0);
+        }
+        td.eq(1).text(updAmount);
+    });
+});

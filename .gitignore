@@ -351,3 +351,6 @@ MigrationBackup/
 
 #Cloud Vision API Key
 VisionAPIKey.txt
+
+#Food Data Central API Key
+NutrientDiary/FDCAPIKey.txt
