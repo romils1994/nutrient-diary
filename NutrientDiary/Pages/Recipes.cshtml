@@ -1,0 +1,83 @@
+﻿@page
+@model NutrientDiary.Pages.RecipesModel
+@{
+    ViewData["Title"] = "Recipes";
+}
+<!-- ======= Header ======= -->
+<main id="main">
+    <section id="nutrient-details" class="nutrient-details">
+        <h1 class="display-5">Most Viewed Recipes</h1>
+        <div class="container">
+            @if (String.IsNullOrEmpty(Model.Error))
+            {
+                @if (Model.MostViewedRecipes.Any())
+                {
+                    foreach (var mostViewedRecipe in Model.MostViewedRecipes)
+                    {
+                        <div class="row margin-top-42">
+                            <div class="card col-12 p-0">
+                                <div class="card-header">
+                                    @mostViewedRecipe.Recipe.Title
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <img src="@mostViewedRecipe.Recipe.ImageUrl" alt="@mostViewedRecipe.Recipe.Title" class="card-img" />
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="card-body">
+                                            <blockquote class="blockquote mb-0">
+                                                <h6 class="card-subtitle">Ingredients:</h6>
+                                                <p class="card-text">
+                                                    <ul class="list-unstyled pl-4">
+                                                        @{
+                                                            int i = 0;
+                                                            foreach (var ingredient in mostViewedRecipe.Recipe.Ingredients)
+                                                            {
+                                                                String ingred = ingredient;
+                                                                if (i == 4)
+                                                                {
+                                                                    ingred += "...";
+                                                                }
+                                                                <li>@ingred</li>
+                                                                if (i == 4)
+                                                                {
+                                                                    break;
+                                                                }
+                                                                i++;
+                                                            }
+                                                        }
+                                                    </ul>
+                                                </p>
+                                                <footer class="blockquote-footer">
+                                                    <cite title="Source Title">
+                                                        <a href="@mostViewedRecipe.Recipe.PublisherUrl" class="card-link">@mostViewedRecipe.Recipe.Publisher</a>
+                                                    </cite>
+                                                </footer>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="card col-12">
+                        <div class="row">
+                            <div class="card-title">No Most Reviewed Recipes Found</div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="card col-12">
+                    <div class="row">
+                        <div class="card-title">@Model.Error</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</main>
