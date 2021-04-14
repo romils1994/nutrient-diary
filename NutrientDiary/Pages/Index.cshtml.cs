@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -23,17 +24,66 @@ namespace NutrientDiary.Pages
 
         public string Base64Image { get; set; }
 
-        public List<string> Objects = new List<string>();
-
         public string Error;
 
+        public bool isPostBack = false;
+
+        public List<FoodInfo> FoodDetails = new List<FoodInfo>(); 
+
         private const string FEATURE_TYPE = "OBJECT_LOCALIZATION";
+
+        [BindProperty(SupportsGet = true)]
+        public string query { get; set; }
+
+        public async Task<IActionResult> OnGet()
+        {
+            if (!String.IsNullOrEmpty(query) && !String.IsNullOrWhiteSpace(query))
+            {
+                List<string> queryList = new List<string>();
+                queryList.Add(query);
+                List<long> fdcIds = this.detectFoodItems(queryList);
+                if (fdcIds.Any())
+                {
+                    FoodDetails = this.getFoodInfo(fdcIds);
+                }
+
+                if (FoodDetails.Any())
+                {
+                    return new JsonResult(FoodDetails);
+                }
+                else
+                {
+                    Error noDataResult = new Error()
+                    {
+                        ErrorCode = 400,
+                        ErrorMessage = "No search result Found"
+                    };
+                    return new JsonResult(noDataResult);
+                }
+            }
+
+            return Page();
+        }
 
         public void OnPost(string base64image)
         {
             Base64Image = base64image;
+            isPostBack = true;
+            List<string> objects = this.detectObjects(base64image);
+            if (objects.Any())
+            {
+                List<long> fdcIds = this.detectFoodItems(objects);
+                if (fdcIds.Any())
+                {
+                    FoodDetails = this.getFoodInfo(fdcIds);
+                }
+            }
+        }
+
+        private List<string> detectObjects(string base64image)
+        {
             var imageParts = base64image.Split(',').ToList<string>();
-            
+
             VisionAPIRequest visionAPIRequest = new VisionAPIRequest()
             {
                 requests = new List<requests>()
@@ -56,33 +106,113 @@ namespace NutrientDiary.Pages
                 }
             };
 
-            String visionJson = JsonConvert.SerializeObject(visionAPIRequest);
+            String visionAPIReqStr = JsonConvert.SerializeObject(visionAPIRequest);
             String apiKey = System.IO.File.ReadAllText("VisionAPIKey.txt");
-            String url = "https://vision.googleapis.com/v1/images:annotate?key=" + apiKey;
+            String domain = "vision.googleapis.com";
+            String endpoint = "v1/images:annotate";
+            String visionAPIRespStr = this.callPostAPI(visionAPIReqStr,domain,endpoint,apiKey,"key");
+            List<string> objects = new List<string>();
+            if (!String.IsNullOrEmpty(visionAPIRespStr))
+            {
+                VisionAPI.Objects objectAnnotationResponse = VisionAPI.Objects.FromJson(visionAPIRespStr);
+                foreach (VisionAPI.Response responses in objectAnnotationResponse.Responses)
+                {
+                    foreach (VisionAPI.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
+                    {
+                        if (!objects.Contains(localizedObject.Name))
+                        {
+                            objects.Add(localizedObject.Name);
+                        }
+                    }
+                }
+            }
+            
+            return objects;
+        }
+
+        private List<long> detectFoodItems(List<string> objects)
+        {
+            String apiKey = System.IO.File.ReadAllText("FDCAPIKey.txt");
+            String domain = "api.nal.usda.gov";
+            String endpoint = "fdc/v1/foods/search";
+            List<long> fdcIds = new List<long>();
+            foreach (string obj in objects) {
+                FDCSearchAPIRequest fDCSearchAPIRequest = new FDCSearchAPIRequest()
+                {
+                    query = obj,
+                    pageSize = 1,
+                    pageNumber = 1
+                };
+                String fdcSearchReqStr = JsonConvert.SerializeObject(fDCSearchAPIRequest);
+                String fdcSearchRespStr = this.callPostAPI(fdcSearchReqStr, domain, endpoint, apiKey, "api_key");
+                FDCSearch.FdcSearchApi fdcSearchResponse = FDCSearch.FdcSearchApi.FromJson(fdcSearchRespStr);
+                foreach (FDCSearch.Food foods in fdcSearchResponse.Foods)
+                {
+                    fdcIds.Add(foods.FdcId);
+                }
+            }
+
+            return fdcIds;
+        }
+
+        private List<FoodInfo> getFoodInfo(List<long> fdcIds)
+        {
+            String apiKey = System.IO.File.ReadAllText("FDCAPIKey.txt");
+            String domain = "api.nal.usda.gov";
+            String endpoint = "fdc/v1/foods";
+            FDCFoodInfoAPIRequest fDCFoodInfoAPIRequest = new FDCFoodInfoAPIRequest()
+            {
+                fdcIds = fdcIds
+            };
+            String fdcFoodInfoReqStr = JsonConvert.SerializeObject(fDCFoodInfoAPIRequest);
+            String fdcFoodInfoRespStr = this.callPostAPI(fdcFoodInfoReqStr, domain, endpoint, apiKey, "api_key");
+            List<FDCFoodInfo.FdcFoodInfoApi> fdcFoodInfoResponse = FDCFoodInfo.FdcFoodInfoApi.FromJson(fdcFoodInfoRespStr);
+            List<FoodInfo> foodDict = new List<FoodInfo>();
+            foreach(FDCFoodInfo.FdcFoodInfoApi  fdcFoodInfo in fdcFoodInfoResponse)
+            {
+                List<FoodNutrient> foodNutrients = new List<FoodNutrient>();
+                foreach(FDCFoodInfo.FoodNutrient foodNutrient in fdcFoodInfo.FoodNutrients)
+                {
+                    foodNutrients.Add(new FoodNutrient() {
+                        Name = foodNutrient.Nutrient.Name,
+                        Amount = foodNutrient.Amount,
+                        UnitName = foodNutrient.Nutrient.UnitName
+                    });
+                }
+
+                foodDict.Add(new FoodInfo() { 
+                    FdcId = fdcFoodInfo.FdcId,
+                    Description = fdcFoodInfo.Description,
+                    BrandedFoodCategory = fdcFoodInfo.BrandedFoodCategory,
+                    ServingSizeUnit = fdcFoodInfo.ServingSizeUnit,
+                    FoodNutrients = foodNutrients,
+                    PortionSize = 100
+                });
+            }
+
+            return foodDict;
+        }
+
+        private string callPostAPI (string requestJson, string domain, string endpoint = null, string apiKey = null, string apiKeyParam = null, string protocol = "https")
+        {
+            String url = protocol + "://" + domain + "/" + endpoint + "?" + apiKeyParam + "=" + apiKey;
+            String response = null;
             using (var webClient = new WebClient())
             {
                 webClient.Headers.Add("Content-Type", "application/json");
                 try
                 {
-                    String response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(requestJson)));
-                    QuickType.Objects objectAnnotationResponse = QuickType.Objects.FromJson(response);
-
-                    foreach (QuickType.Response responses in objectAnnotationResponse.Responses)
-                    {
-                        foreach (QuickType.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
-                        {
-                            if (!Objects.Contains(localizedObject.Name))
-                            {
-                                Objects.Add(localizedObject.Name);
-                            }
-                        }
-                    }
-                } catch (Exception ex)
+                    response = Encoding.ASCII.GetString(webClient.UploadData(new Uri(url), "POST", Encoding.UTF8.GetBytes(requestJson)));
+                }
+                catch (Exception ex)
                 {
                     Error = "Something went wrong! Could not reach the API Servers";
                     Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace.ToString());
                 }
             }
+
+            return response;
         }
     }
 }
