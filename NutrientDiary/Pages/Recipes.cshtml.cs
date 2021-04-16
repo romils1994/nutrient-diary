@@ -15,7 +15,7 @@ namespace NutrientDiary.Pages
         public string Error;
         public void OnGet()
         {
-            String url = "https://localhost:44329/?getMostSearched=true";
+            String url = "https://momsspaghetti.azurewebsites.net/?getMostSearched=true";
             using (var webClient = new WebClient())
             {
                 try
