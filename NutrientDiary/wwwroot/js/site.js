@@ -33,6 +33,7 @@ function turnOnCamera() {
     Webcam.attach('#my_camera');
     $("#camera_on").hide();
     $("#capture").show();
+    $("#image-details").hide();
 }
 
 function takeSnapshot() {
@@ -49,6 +50,7 @@ function takeSnapshot() {
     document.getElementById("imageSelector").value = "";
     $("#defaultImage").hide();
     $("#submitImage").show();
+    $("#image-details").hide();
 }
 
 function previewFile() {

@@ -566,3 +566,8 @@ img {
     background-image: url("~/img/5.jpg");
     background-color: #b6ff00 !important;
 }
+
+.rounded-circle {
+    border-radius: 50% !important;
+    height: 340px !important;
+}

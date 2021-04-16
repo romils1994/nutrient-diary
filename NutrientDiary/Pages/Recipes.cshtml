@@ -7,7 +7,7 @@
 <main id="main">
     <section id="nutrient-details" class="nutrient-details">
         <h1 class="display-5 p-3">Most Viewed Recipes</h1>
-        <hr class="mt-2 mb-3" />
+        <hr class="mb-3" />
         <div class="container">
             @if (String.IsNullOrEmpty(Model.Error))
             {
@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-4">
-                                        <img src="@mostViewedRecipe.Recipe.ImageUrl" alt="@mostViewedRecipe.Recipe.Title" class="card-img" />
+                                        <img class="rounded-circle card-img" src="@mostViewedRecipe.Recipe.ImageUrl" alt="@mostViewedRecipe.Recipe.Title" />
                                     </div>
                                     <div class="col-8">
                                         <div class="card-body">
@@ -35,12 +35,12 @@
                                                             foreach (var ingredient in mostViewedRecipe.Recipe.Ingredients)
                                                             {
                                                                 String ingred = ingredient;
-                                                                if (i == 4)
+                                                                if (i == 8)
                                                                 {
                                                                     ingred += "...";
                                                                 }
                                                                 <li>@ingred</li>
-                                                                if (i == 4)
+                                                                if (i == 8)
                                                                 {
                                                                     break;
                                                                 }
