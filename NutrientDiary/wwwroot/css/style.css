@@ -12,10 +12,10 @@ a {
     text-decoration: none;
 }
 
-a:hover {
-    color: #00cc95;
-    text-decoration: none;
-}
+    a:hover {
+        color: #00cc95;
+        text-decoration: none;
+    }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Raleway", sans-serif;
@@ -42,21 +42,21 @@ h1, h2, h3, h4, h5, h6 {
     transition: all 0.4s;
 }
 
-.back-to-top i {
-    font-size: 28px;
-    color: #fff;
-    line-height: 0;
-}
+    .back-to-top i {
+        font-size: 28px;
+        color: #fff;
+        line-height: 0;
+    }
 
-.back-to-top:hover {
-    background: #00c28e;
-    color: #fff;
-}
+    .back-to-top:hover {
+        background: #00c28e;
+        color: #fff;
+    }
 
-.back-to-top.active {
-    visibility: visible;
-    opacity: 1;
-}
+    .back-to-top.active {
+        visibility: visible;
+        opacity: 1;
+    }
 
 /*--------------------------------------------------------------
 # Disable AOS delay on mobile
@@ -77,40 +77,40 @@ h1, h2, h3, h4, h5, h6 {
     top: 20px;
 }
 
-#header .header-container {
-    background: #fff;
-}
+    #header .header-container {
+        background: #fff;
+    }
 
-#header.header-scrolled {
-    background: #fff;
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-    top: 0;
-}
+    #header.header-scrolled {
+        background: #fff;
+        box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+        top: 0;
+    }
 
-#header .logo {
-    overflow: hidden;
-    padding: 16px 30px 12px 30px;
-    background: #009970;
-}
+    #header .logo {
+        overflow: hidden;
+        padding: 12px 30px 12px 30px !important;
+        background: #009970;
+    }
 
-#header .logo h1 {
-    font-size: 26px;
-    padding: 0;
-    line-height: 1;
-    font-weight: 700;
-    font-family: "Poppins", sans-serif;
-}
+        #header .logo h1 {
+            font-size: 26px;
+            padding: 0;
+            line-height: 1;
+            font-weight: 700;
+            font-family: "Poppins", sans-serif;
+        }
 
-#header .logo h1 a, #header .logo h1 a:hover {
-    color: #fff;
-    text-decoration: none;
-}
+            #header .logo h1 a, #header .logo h1 a:hover {
+                color: #fff;
+                text-decoration: none;
+            }
 
-#header .logo img {
-    padding: 0;
-    margin: 0;
-    max-height: 40px;
-}
+        #header .logo img {
+            padding: 0;
+            margin: 0;
+            max-height: 40px;
+        }
 
 @media (max-width: 992px) {
     #header {
@@ -119,17 +119,17 @@ h1, h2, h3, h4, h5, h6 {
         background: #009970;
     }
 
-    #header.header-scrolled, #header .header-container {
-        background: #009970;
-    }
+        #header.header-scrolled, #header .header-container {
+            background: #009970;
+        }
 
-    #header .logo {
-        padding-left: 0;
-    }
+        #header .logo {
+            padding-left: 0;
+        }
 
-    #header .logo h1 {
-        font-size: 24px;
-    }
+            #header .logo h1 {
+                font-size: 24px;
+            }
 }
 
 /*--------------------------------------------------------------
@@ -140,52 +140,67 @@ h1, h2, h3, h4, h5, h6 {
 */
 .navbar {
     padding: 0;
+    margin-bottom: 0px !important;
 }
 
-.navbar ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    list-style: none;
-    align-items: center;
+    .navbar ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+        align-items: center;
+    }
+
+    .navbar li {
+        position: relative;
+    }
+
+    .navbar a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0 10px 30px;
+        color: #36343a;
+        transition: 0.3s;
+        font-size: 20px;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-family: "Poppins", sans-serif;
+        white-space: nowrap;
+        transition: 0.3s;
+    }
+
+        .navbar a i {
+            font-size: 12px;
+            line-height: 0;
+            margin-left: 5px;
+        }
+
+        .navbar a:hover, .navbar .active, .navbar li:hover > a {
+            color: #009970;
+        }
+
+    .navbar .getstarted {
+        background: #009970;
+        padding: 10px 25px;
+        margin-left: 30px;
+        margin-right: 15px;
+        border-radius: 50px;
+        color: #fff !important;
+    }
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: white !important;
+    cursor: default;
+    background-color: #009970 !important;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+    font-size: x-large !important;
 }
 
-.navbar li {
-    position: relative;
-}
-
-.navbar a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 0 10px 30px;
-    color: #36343a;
-    transition: 0.3s;
-    font-size: 13px;
-    font-weight: 500;
-    text-transform: uppercase;
-    font-family: "Poppins", sans-serif;
-    white-space: nowrap;
-    transition: 0.3s;
-}
-
-.navbar a i {
-    font-size: 12px;
-    line-height: 0;
-    margin-left: 5px;
-}
-
-.navbar a:hover, .navbar .active, .navbar li:hover > a {
-    color: #009970;
-}
-
-.navbar .getstarted {
-    background: #009970;
-    padding: 10px 25px;
-    margin-left: 30px;
-    margin-right: 15px;
-    border-radius: 50px;
-    color: #fff !important;
+.nav-tabs .nav-link {
+    color: #009970 !important;
+    font-size: medium !important;
 }
 
 .navbar .getstarted:hover {
@@ -208,23 +223,23 @@ h1, h2, h3, h4, h5, h6 {
     transition: 0.3s;
 }
 
-.navbar .dropdown ul li {
-    min-width: 200px;
-}
+    .navbar .dropdown ul li {
+        min-width: 200px;
+    }
 
-.navbar .dropdown ul a {
-    padding: 10px 20px;
-    text-transform: none;
-    font-weight: 500;
-}
+    .navbar .dropdown ul a {
+        padding: 10px 20px;
+        text-transform: none;
+        font-weight: 500;
+    }
 
-.navbar .dropdown ul a i {
-    font-size: 12px;
-}
+        .navbar .dropdown ul a i {
+            font-size: 12px;
+        }
 
-.navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover > a {
-    color: #009970;
-}
+        .navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover > a {
+            color: #009970;
+        }
 
 .navbar .dropdown:hover > ul {
     opacity: 1;
@@ -289,70 +304,70 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 999;
 }
 
-.navbar-mobile .mobile-nav-toggle {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-}
+    .navbar-mobile .mobile-nav-toggle {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
 
-.navbar-mobile ul {
-    display: block;
-    position: absolute;
-    top: 55px;
-    right: 15px;
-    bottom: 15px;
-    left: 15px;
-    padding: 10px 0;
-    background-color: #fff;
-    overflow-y: auto;
-    transition: 0.3s;
-}
+    .navbar-mobile ul {
+        display: block;
+        position: absolute;
+        top: 55px;
+        right: 15px;
+        bottom: 15px;
+        left: 15px;
+        padding: 10px 0;
+        background-color: #fff;
+        overflow-y: auto;
+        transition: 0.3s;
+    }
 
-.navbar-mobile a {
-    padding: 10px 20px;
-    font-size: 15px;
-    color: #36343a;
-}
+    .navbar-mobile a {
+        padding: 10px 20px;
+        font-size: 15px;
+        color: #36343a;
+    }
 
-.navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
-    color: #009970;
-}
+        .navbar-mobile a:hover, .navbar-mobile .active, .navbar-mobile li:hover > a {
+            color: #009970;
+        }
 
-.navbar-mobile .getstarted {
-    margin: 15px;
-}
+    .navbar-mobile .getstarted {
+        margin: 15px;
+    }
 
-.navbar-mobile .dropdown ul {
-    position: static;
-    display: none;
-    margin: 10px 20px;
-    padding: 10px 0;
-    z-index: 99;
-    opacity: 1;
-    visibility: visible;
-    background: #fff;
-    box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
-}
+    .navbar-mobile .dropdown ul {
+        position: static;
+        display: none;
+        margin: 10px 20px;
+        padding: 10px 0;
+        z-index: 99;
+        opacity: 1;
+        visibility: visible;
+        background: #fff;
+        box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+    }
 
-.navbar-mobile .dropdown ul li {
-    min-width: 200px;
-}
+        .navbar-mobile .dropdown ul li {
+            min-width: 200px;
+        }
 
-.navbar-mobile .dropdown ul a {
-    padding: 10px 20px;
-}
+        .navbar-mobile .dropdown ul a {
+            padding: 10px 20px;
+        }
 
-.navbar-mobile .dropdown ul a i {
-    font-size: 12px;
-}
+            .navbar-mobile .dropdown ul a i {
+                font-size: 12px;
+            }
 
-.navbar-mobile .dropdown ul a:hover, .navbar-mobile .dropdown ul .active:hover, .navbar-mobile .dropdown ul li:hover > a {
-    color: #009970;
-}
+            .navbar-mobile .dropdown ul a:hover, .navbar-mobile .dropdown ul .active:hover, .navbar-mobile .dropdown ul li:hover > a {
+                color: #009970;
+            }
 
-.navbar-mobile .dropdown > .dropdown-active {
-    display: block;
-}
+    .navbar-mobile .dropdown > .dropdown-active {
+        display: block;
+    }
 
 /*--------------------------------------------------------------
 # nutrient
@@ -368,29 +383,29 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
-.nutrient #nutrient-flters li {
-    cursor: pointer;
-    display: inline-block;
-    padding: 8px 16px 8px 16px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1;
-    text-transform: uppercase;
-    color: #444444;
-    margin-bottom: 5px;
-    transition: all 0.3s ease-in-out;
-    border-radius: 50px;
-    font-family: "Poppins", sans-serif;
-}
+    .nutrient #nutrient-flters li {
+        cursor: pointer;
+        display: inline-block;
+        padding: 8px 16px 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1;
+        text-transform: uppercase;
+        color: #444444;
+        margin-bottom: 5px;
+        transition: all 0.3s ease-in-out;
+        border-radius: 50px;
+        font-family: "Poppins", sans-serif;
+    }
 
-.nutrient #nutrient-flters li:hover, .nutrient #nutrient-flters li.filter-active {
-    color: #fff;
-    background: #009970;
-}
+        .nutrient #nutrient-flters li:hover, .nutrient #nutrient-flters li.filter-active {
+            color: #fff;
+            background: #009970;
+        }
 
-.nutrient #nutrient-flters li:last-child {
-    margin-right: 0;
-}
+        .nutrient #nutrient-flters li:last-child {
+            margin-right: 0;
+        }
 
 .nutrient .nutrient-wrap {
     transition: 0.3s;
@@ -400,140 +415,159 @@ h1, h2, h3, h4, h5, h6 {
     background: rgba(54, 52, 58, 0.6);
 }
 
-.nutrient .nutrient-wrap::before {
-    content: "";
-    background: rgba(54, 52, 58, 0.6);
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    transition: all ease-in-out 0.3s;
-    z-index: 2;
-    opacity: 0;
-}
+    .nutrient .nutrient-wrap::before {
+        content: "";
+        background: rgba(54, 52, 58, 0.6);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        transition: all ease-in-out 0.3s;
+        z-index: 2;
+        opacity: 0;
+    }
 
-.nutrient .nutrient-wrap img {
-    transition: all ease-in-out 0.3s;
-}
+    .nutrient .nutrient-wrap img {
+        transition: all ease-in-out 0.3s;
+    }
 
-.nutrient .nutrient-wrap .nutrient-info {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 3;
-    transition: all ease-in-out 0.3s;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 20px;
-}
+    .nutrient .nutrient-wrap .nutrient-info {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+        transition: all ease-in-out 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 20px;
+    }
 
-.nutrient .nutrient-wrap .nutrient-info h4 {
-    font-size: 20px;
-    color: #fff;
-    font-weight: 600;
-}
+        .nutrient .nutrient-wrap .nutrient-info h4 {
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
 
-.nutrient .nutrient-wrap .nutrient-info p {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    text-transform: uppercase;
-    padding: 0;
-    margin: 0;
-    font-style: italic;
-}
+        .nutrient .nutrient-wrap .nutrient-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            text-transform: uppercase;
+            padding: 0;
+            margin: 0;
+            font-style: italic;
+        }
 
-.nutrient .nutrient-wrap .nutrient-links {
-    text-align: center;
-    z-index: 4;
-}
+    .nutrient .nutrient-wrap .nutrient-links {
+        text-align: center;
+        z-index: 4;
+    }
 
-.nutrient .nutrient-wrap .nutrient-links a {
-    color: #fff;
-    margin: 0 5px 0 0;
-    font-size: 28px;
-    display: inline-block;
-    transition: 0.3s;
-}
+        .nutrient .nutrient-wrap .nutrient-links a {
+            color: #fff;
+            margin: 0 5px 0 0;
+            font-size: 28px;
+            display: inline-block;
+            transition: 0.3s;
+        }
 
-.nutrient .nutrient-wrap .nutrient-links a:hover {
-    color: #00cc95;
-}
+            .nutrient .nutrient-wrap .nutrient-links a:hover {
+                color: #00cc95;
+            }
 
-.nutrient .nutrient-wrap:hover::before {
-    opacity: 1;
-}
+    .nutrient .nutrient-wrap:hover::before {
+        opacity: 1;
+    }
 
-.nutrient .nutrient-wrap:hover img {
-    transform: scale(1.2);
-}
+    .nutrient .nutrient-wrap:hover img {
+        transform: scale(1.2);
+    }
 
-.nutrient .nutrient-wrap:hover .nutrient-info {
-    opacity: 1;
-}
+    .nutrient .nutrient-wrap:hover .nutrient-info {
+        opacity: 1;
+    }
 
 /*--------------------------------------------------------------
 # Nutrient Details
 --------------------------------------------------------------*/
-.nutrient-details {
-    padding-top: 40px;
+    .nutrient-details .nutrient-details-slider img {
+        width: 100%;
+    }
+
+    .nutrient-details .nutrient-details-slider .swiper-pagination {
+        margin-top: 20px;
+        position: relative;
+    }
+
+        .nutrient-details .nutrient-details-slider .swiper-pagination .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background-color: #fff;
+            opacity: 1;
+            border: 1px solid #009970;
+        }
+
+        .nutrient-details .nutrient-details-slider .swiper-pagination .swiper-pagination-bullet-active {
+            background-color: #009970;
+        }
+
+    .nutrient-details .nutrient-info {
+        padding: 30px;
+        box-shadow: 0px 0 30px rgba(54, 52, 58, 0.08);
+    }
+
+        .nutrient-details .nutrient-info h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nutrient-details .nutrient-info ul {
+            list-style: none;
+            padding: 0;
+            font-size: 13px;
+        }
+
+    .nutrient-details .nutrient-description {
+        /* padding-top: 30px;*/
+    }
+
+        .nutrient-details .nutrient-description h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .nutrient-details .nutrient-description p {
+            padding: 0;
+        }
+
+.btn-success {
+    color: #fff;
+    background-color: #009970 !important;
+    border-color: #009970 !important;
+    font-weight: 550px !important
 }
 
-.nutrient-details .nutrient-details-slider img {
-    width: 100%;
+img {
+    vertical-align: middle;
+    width: 100% !important;
+    height: 450px !important;
 }
 
-.nutrient-details .nutrient-details-slider .swiper-pagination {
-    margin-top: 20px;
-    position: relative;
+.img-results {
+    background-image: url("~/img/5.jpg");
+    background-color: #b6ff00 !important;
 }
 
-.nutrient-details .nutrient-details-slider .swiper-pagination .swiper-pagination-bullet {
-    width: 12px;
-    height: 12px;
-    background-color: #fff;
-    opacity: 1;
-    border: 1px solid #009970;
-}
-
-.nutrient-details .nutrient-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-    background-color: #009970;
-}
-
-.nutrient-details .nutrient-info {
-    padding: 30px;
-    box-shadow: 0px 0 30px rgba(54, 52, 58, 0.08);
-}
-
-.nutrient-details .nutrient-info h3 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
-}
-
-.nutrient-details .nutrient-info ul {
-    list-style: none;
-    padding: 0;
-    font-size: 13px;
-}
-
-.nutrient-details .nutrient-description {
-    padding-top: 30px;
-}
-
-.nutrient-details .nutrient-description h2 {
-    font-size: 26px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.nutrient-details .nutrient-description p {
-    padding: 0;
+.rounded-circle {
+    border-radius: 50% !important;
+    height: 340px !important;
 }

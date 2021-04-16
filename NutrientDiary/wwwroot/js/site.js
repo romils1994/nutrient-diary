@@ -5,12 +5,11 @@
         image_format: 'jpeg',
         jpeg_quality: 100
     });
-    Webcam.attach('#my_camera');
 }
 var foodDetails = {};
 $(document).ready(function () {
-    $("#submitImage,#Base64Image").hide();
-
+    $("#submitImage,#Base64Image,#capture").hide();
+    $("#camera_on").show();
     $(".nutrient-tabs a").click(function () {
         $(this).tab('show');
     });
@@ -30,6 +29,13 @@ $(document).ready(function () {
     });
 });
 
+function turnOnCamera() {
+    Webcam.attach('#my_camera');
+    $("#camera_on").hide();
+    $("#capture").show();
+    $("#image-details").hide();
+}
+
 function takeSnapshot() {
     // take snapshot and get image data
     Webcam.snap(function (dataUri) {
@@ -42,7 +48,9 @@ function takeSnapshot() {
     var base64Image = document.getElementById("imageprev").src;
     document.getElementById("Base64Image").value = base64Image;
     document.getElementById("imageSelector").value = "";
+    $("#defaultImage").hide();
     $("#submitImage").show();
+    $("#image-details").hide();
 }
 
 function previewFile() {
@@ -61,13 +69,13 @@ function previewFile() {
     if (file) {
         reader.readAsDataURL(file);
     }
+    $("#defaultImage").hide();
     $("#submitImage").show();
 }
 
 $("input[name=portion]").change(function updateNutrientInfo() {
     var foodItem = $(this).data("food-item");
     var portionSize = $(this).val();
-
     $("table[data-fdc=" + foodItem + "] tbody").find('tr').each(function (key, val) {
         var td = $(this).find('td');
         var initialAmount = foodDetails[foodItem][key];

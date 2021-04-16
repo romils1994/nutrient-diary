@@ -4,15 +4,60 @@
     ViewData["Title"] = "Home page";
 }
 <head>
+
     <script type="text/javascript" src="js/webcam.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" data-auto-replace-svg="nest"></script>
 </head>
 <!-- ======= Header ======= -->
 <main id="main">
     <section id="nutrient-details" class="nutrient-details">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="~/img/1.jpg" alt="1">
+                </div>
+                <div class="item">
+                    <img src="~/img/2.png" alt="2">
+                </div>
+                <div class="item">
+                    <img src="~/img/3.jpg" alt="3">
+                </div>
+                <div class="item">
+                    <img src="~/img/4.jpeg" alt="4">
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <hr class="mt-2 mb-3" />
         <div class="container">
-            <div class="row gy-4">
-                <div class="col-lg-4">
-                    <ul class="nav nav-tabs">
+            <div class="row col-md-12 p-0">
+                <div class="col-lg-3 text-dark bg-light card">
+                    <ul class="nav nav-tabs p-2">
                         <li class="nav-item">
                             <a data-toggle="tab" class="nav-link active" href="#capture-snapshot">Capture Snapshot</a>
                         </li>
@@ -20,145 +65,176 @@
                             <a data-toggle="tab" class="nav-link" href="#browse-image">Browse Image</a>
                         </li>
                     </ul>
-                    <div class="tab-content">
-                        <div id="capture-snapshot" class="tab-pane in active">
+                    <div class="tab-content mb-2">
+                        <div id="capture-snapshot" class="text-center tab-pane in active">
                             <div class="nutrient-details-slider swiper-container">
                                 <div id="my_camera"></div>
-                                <button type="button" class="btn btn-success mt-1 text-right" onClick="takeSnapshot()" value="Take Picture">Take Picture</button>
-                                </div>
+                                <button id="camera_on" type="button" class="btn btn-success mt-1 text-right" onClick="turnOnCamera()" value="Turn On Camera">
+                                    <i class="fa fa-camera"></i>
+                                </button>
+
+                                <button id="capture" type="button" class="btn btn-success mt-1 text-right" onClick="takeSnapshot()" value="Take Picture">
+                                    <i class="fa fa-images"></i>
+                                </button>
                             </div>
-                        <div id="browse-image" class="tab-pane fade">
+                        </div>
+                        <div id="browse-image" class="tab-pane fade text-center">
                             <label class="mt-2 btn btn-success" for="imageSelector">
-                                <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none" accept="image/*" onchange="previewFile()" />
+                                <input class="form-control form-control-lg" type="file" id="imageSelector" style="display:none; font-size:x-large" accept="image/*" onchange="previewFile()" />
                                 Select Image
                             </label>
                         </div>
                     </div>
+                    <div id="image-details">
+                        <div class="alert alert-primary">
+                            <p>Click on Camera icon and capture food item</p>
+                        </div>
+
+                        <div class="alert alert-warning">
+                            <p>Click on browse image and select an image of a food</p>
+                        </div>
+
+                        <div class="alert alert-success">
+                            <p>Get to know the nutrients</p>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <p>Stay healthy and fit!</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-lg-6 text-dark bg-light card">
                     <div id="results">
                         @if (!String.IsNullOrEmpty(Model.Base64Image))
                         {
                             <img id="imageprev" class="img-fluid margin-top-42" src="@Model.Base64Image" />
                         }
+                        else
+                        {
+                            <img id="defaultImage" class="img-fluid margin-top-42" src="~/img/5.jpg" />
+                        }
                     </div>
-                    <form runat="server" method="post" class="form-inline text-center hide">
+                    <form runat="server" method="post" class="form-inline" style="justify-content: center;">
                         <input type="text" asp-for="Base64Image" runat="server" class="hide" />
-                        <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage" runat="server">Submit</button>
+                        <button type="submit" class="btn btn-success mt-1 text-right" id="submitImage" style="font-size: large" runat="server">
+                           Get Nutrient Value
+                        </button>
                     </form>
                 </div>
 
-                <div class="col-lg-4">
-                    <div class="nutrient-description" style="font-size: 13px;">
-                        <p class="font-weight-bold font-italic text-capitalize">
-                            Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
-                        </p>
-                        <div class="alert alert-success">
-                            <p>Take or upload pictures of food you willing to eat.</p>
-                        </div>
+                    <div class="col-lg-3 text-dark bg-light card">
+                        <div class="nutrient-description p-2">
+                            <p class="font-weight-bold font-italic text-capitalize">
+                                Are you in the dilemma, that stuff you eating is it nutritious? Does the food you eat suffice your daily nutrition requirement? Nutrient Diary is here for you:
+                            </p>
+                            <div class="alert alert-success">
+                                <p>Take or upload pictures of food you willing to eat</p>
+                            </div>
 
-                        <div class="alert alert-info">
-                            <p>Record the portion sizes you willing to eat.</p>
-                        </div>
+                            <div class="alert alert-info">
+                                <p>Record the portion sizes you would like to have</p>
+                            </div>
 
-                        <div class="alert alert-warning">
-                            <p>Get the nutrient info of the food based on the portion.</p>
+                            <div class="alert alert-warning">
+                                <p>Get the nutrient info of the food based on the portion size</p>
+                            </div>
+
+                            <div class="alert alert-danger">
+                                <p>To keep the copy of the nutrients value, excute CTRL+P</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-12">
-                    @if (String.IsNullOrEmpty(Model.Error) && Model.isPostBack)
-                    {
-                        <div class="nutrient-info margin-top-42">
-                            <h3>Nutrient information</h3>
-                            @if (Model.FoodDetails.Any())
-                            {
-                                <ul class="nav nav-tabs">
-                                @foreach (var foodDetail in Model.FoodDetails)
+                    <div class="col-lg-12">
+                        @if (String.IsNullOrEmpty(Model.Error) && Model.isPostBack)
+                        {
+                            <div class="nutrient-info margin-top-42">
+                                <h3>Nutrient information</h3>
+                                @if (Model.FoodDetails.Any())
                                 {
-                                    String className = "";
-                                    if (Model.FoodDetails.First() == foodDetail)
-                                    {
-                                        className = "active";
-                                    }
-                                    String itemName = char.ToUpper(foodDetail.Description[0]) + foodDetail.Description.Substring(1);
-                                    <li class="nav-item">
-                                        <a href="#tab-@foodDetail.FdcId.ToString()" class="nav-link @className" data-toggle="tab">@itemName</a>
-                                    </li>
-                                }
-                                </ul>
-                                <div class="tab-content">
-                                    @foreach (var foodDetail in Model.FoodDetails)
-                                    {
-                                        String className = "fade";
-                                        if (Model.FoodDetails.First() == foodDetail)
+                                    <ul class="nav nav-tabs">
+                                        @foreach (var foodDetail in Model.FoodDetails)
                                         {
-                                            className = "active";
-                                        }
-                                        String category = @foodDetail.BrandedFoodCategory;
-                                        if (String.IsNullOrEmpty(category))
-                                        {
-                                            category = foodDetail.FoodCategory;
-                                        }
-
-                                        <div class="tab-pane @className" id="tab-@foodDetail.FdcId.ToString()">
-                                            <p>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <strong>Category:</strong> @category
-                                                    </div>
-                                                </div>
-                                            </p>
-                                            <p>
-                                                <div class="row">
-                                                    <label for="serving-@foodDetail.FdcId" class="col-3 col-form-label">Portion Size:</label>
-                                                    <input type="number" name="portion" data-food-item="@foodDetail.FdcId" id="serving-@foodDetail.FdcId" class="col-3 form-control" value="@foodDetail.PortionSize" min="0" />
-                                                    <input type="text" readonly class="col-1 form-control-plaintext" id="unit-@foodDetail.FdcId" value="@foodDetail.ServingSizeUnit" />
-                                                </div>
-                                            </p>
-
-                                            @if(foodDetail.FoodNutrients.Any())
+                                            String className = "";
+                                            if (Model.FoodDetails.First() == foodDetail)
                                             {
-                                                <table class="table table-striped" data-fdc="@foodDetail.FdcId">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">Name</th>
-                                                            <th scope="col">Amount</th>
-                                                            <th scope="col">Unit</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach (var nutrient in foodDetail.FoodNutrients)
-                                                    {
-                                                        <tr>
-                                                            <td>@nutrient.Name</td>
-                                                            <td>@nutrient.Amount</td>
-                                                            <td>@nutrient.UnitName</td>
-                                                        </tr>
-                                                    }
-                                                    </tbody>
-                                                </table>
+                                                className = "active";
                                             }
-                                        </div>
-                                    }
-                                </div>
+                                            String itemName = char.ToUpper(foodDetail.Description[0]) + foodDetail.Description.Substring(1);
+                                            <li class="nav-item">
+                                                <a href="#tab-@foodDetail.FdcId.ToString()" class="nav-link @className" data-toggle="tab">@itemName</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                    <div class="tab-content">
+                                        @foreach (var foodDetail in Model.FoodDetails)
+                                        {
+                                            String className = "fade";
+                                            if (Model.FoodDetails.First() == foodDetail)
+                                            {
+                                                className = "active";
+                                            }
+                                            String category = @foodDetail.BrandedFoodCategory;
+                                            if (String.IsNullOrEmpty(category))
+                                            {
+                                                category = foodDetail.FoodCategory;
+                                            }
+
+                                            <div class="tab-pane @className" id="tab-@foodDetail.FdcId.ToString()">
+                                                <p>
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <strong>Category:</strong> @category
+                                                        </div>
+                                                    </div>
+                                                </p>
+                                                <p>
+                                                    <div class="row">
+                                                        <label for="serving-@foodDetail.FdcId" class="col-3 col-form-label">Portion Size:</label>
+                                                        <input type="number" name="portion" data-food-item="@foodDetail.FdcId" id="serving-@foodDetail.FdcId" class="col-3 form-control" value="@foodDetail.PortionSize" min="0" />
+                                                        <input type="text" readonly class="col-1 form-control-plaintext" id="unit-@foodDetail.FdcId" value="@foodDetail.ServingSizeUnit" />
+                                                    </div>
+                                                </p>
+
+                                                @if (foodDetail.FoodNutrients.Any())
+                                                {
+                                                    <table class="table table-striped" data-fdc="@foodDetail.FdcId">
+                                                        <thead>
+                                                            <tr>
+                                                                <th scope="col">Name</th>
+                                                                <th scope="col">Amount</th>
+                                                                <th scope="col">Unit</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var nutrient in foodDetail.FoodNutrients)
+                                                            {
+                                                                <tr>
+                                                                    <td>@nutrient.Name</td>
+                                                                    <td>@nutrient.Amount</td>
+                                                                    <td>@nutrient.UnitName</td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
                                 }
                                 else if (Model.isPostBack)
                                 {
-                                <strong>No Food Item Detected</strong>
+                                    <strong>No Food Item Detected</strong>
                                 }
-                        </div>
+                            </div>
                         }
                         else if (!String.IsNullOrEmpty(Model.Error))
                         {
-                        <strong>@Model.Error</strong>
+                            <strong>@Model.Error</strong>
                         }
 
+                    </div>
                 </div>
-
-            </div>
         </div>
     </section>
 </main>
