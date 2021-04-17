@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/VisionAPI",
+  "definitions": {
+    "VisionAPI": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Response"
+          }
+        }
+      },
+      "required": [],
+      "title": "VisionAPI"
+    },
+    "Response": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "localizedObjectAnnotations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LocalizedObjectAnnotation"
+          }
+        }
+      },
+      "required": [],
+      "title": "Response"
+    },
+    "LocalizedObjectAnnotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mid": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "score": {
+          "type": "number"
+        },
+        "boundingPoly": {
+          "$ref": "#/definitions/BoundingPoly"
+        }
+      },
+      "required": [],
+      "title": "LocalizedObjectAnnotation"
+    },
+    "BoundingPoly": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "normalizedVertices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NormalizedVertex"
+          }
+        }
+      },
+      "required": [],
+      "title": "BoundingPoly"
+    },
+    "NormalizedVertex": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [],
+      "title": "NormalizedVertex"
+    }
+  }
+}

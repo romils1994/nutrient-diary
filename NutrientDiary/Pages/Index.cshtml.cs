@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -111,22 +112,27 @@ namespace NutrientDiary.Pages
             String domain = "vision.googleapis.com";
             String endpoint = "v1/images:annotate";
             String visionAPIRespStr = this.callPostAPI(visionAPIReqStr,domain,endpoint,apiKey,"key");
+            JSchema visionAPISchema = JSchema.Parse(System.IO.File.ReadAllText("VisionAPISchema.json"));
+            JObject visionAPIRespObj = JObject.Parse(visionAPIRespStr);
             List<string> objects = new List<string>();
-            if (!String.IsNullOrEmpty(visionAPIRespStr))
+            IList<string> validationEvents = new List<string>();
+            if (visionAPIRespObj.IsValid(visionAPISchema, out validationEvents))
             {
-                VisionAPI.Objects objectAnnotationResponse = VisionAPI.Objects.FromJson(visionAPIRespStr);
-                foreach (VisionAPI.Response responses in objectAnnotationResponse.Responses)
+                if (!String.IsNullOrEmpty(visionAPIRespStr))
                 {
-                    foreach (VisionAPI.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
+                    VisionAPI.Objects objectAnnotationResponse = VisionAPI.Objects.FromJson(visionAPIRespStr);
+                    foreach (VisionAPI.Response responses in objectAnnotationResponse.Responses)
                     {
-                        if (!objects.Contains(localizedObject.Name))
+                        foreach (VisionAPI.LocalizedObjectAnnotation localizedObject in responses.LocalizedObjectAnnotations)
                         {
-                            objects.Add(localizedObject.Name);
+                            if (!objects.Contains(localizedObject.Name))
+                            {
+                                objects.Add(localizedObject.Name);
+                            }
                         }
                     }
                 }
             }
-            
             return objects;
         }
 
@@ -166,21 +172,23 @@ namespace NutrientDiary.Pages
             };
             String fdcFoodInfoReqStr = JsonConvert.SerializeObject(fDCFoodInfoAPIRequest);
             String fdcFoodInfoRespStr = this.callPostAPI(fdcFoodInfoReqStr, domain, endpoint, apiKey, "api_key");
-            List<FDCFoodInfo.FdcFoodInfoApi> fdcFoodInfoResponse = FDCFoodInfo.FdcFoodInfoApi.FromJson(fdcFoodInfoRespStr);
             List<FoodInfo> foodDict = new List<FoodInfo>();
-            foreach(FDCFoodInfo.FdcFoodInfoApi  fdcFoodInfo in fdcFoodInfoResponse)
+            List<FDCFoodInfo.FdcFoodInfoApi> fdcFoodInfoResponse = FDCFoodInfo.FdcFoodInfoApi.FromJson(fdcFoodInfoRespStr);
+            foreach (FDCFoodInfo.FdcFoodInfoApi fdcFoodInfo in fdcFoodInfoResponse)
             {
                 List<FoodNutrient> foodNutrients = new List<FoodNutrient>();
-                foreach(FDCFoodInfo.FoodNutrient foodNutrient in fdcFoodInfo.FoodNutrients)
+                foreach (FDCFoodInfo.FoodNutrient foodNutrient in fdcFoodInfo.FoodNutrients)
                 {
-                    foodNutrients.Add(new FoodNutrient() {
+                    foodNutrients.Add(new FoodNutrient()
+                    {
                         Name = foodNutrient.Nutrient.Name,
                         Amount = foodNutrient.Amount,
                         UnitName = foodNutrient.Nutrient.UnitName
                     });
                 }
 
-                foodDict.Add(new FoodInfo() { 
+                foodDict.Add(new FoodInfo()
+                {
                     FdcId = fdcFoodInfo.FdcId,
                     Description = fdcFoodInfo.Description,
                     BrandedFoodCategory = fdcFoodInfo.BrandedFoodCategory,
@@ -189,7 +197,7 @@ namespace NutrientDiary.Pages
                     PortionSize = 100
                 });
             }
-
+            
             return foodDict;
         }
 
