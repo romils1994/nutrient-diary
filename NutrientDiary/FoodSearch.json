@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/MostViewedRecipeElement"
+  },
+  "definitions": {
+    "MostViewedRecipeElement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fdcId": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "foodNutrients": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FoodNutrient"
+          }
+        },
+        "brandedFoodCategory": {
+          "type": "string"
+        },
+        "servingSize": {
+          "type": "integer"
+        },
+        "servingSizeUnit": {
+          "type": "string"
+        },
+        "portionSize": {
+          "type": "integer"
+        },
+        "foodCategory": {
+          "type": "null"
+        }
+      },
+      "required": [
+        "brandedFoodCategory",
+        "description",
+        "fdcId",
+        "foodCategory",
+        "foodNutrients",
+        "portionSize",
+        "servingSize",
+        "servingSizeUnit"
+      ],
+      "title": "MostViewedRecipeElement"
+    },
+    "FoodNutrient": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "unitName": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "amount",
+        "name",
+        "unitName"
+      ],
+      "title": "FoodNutrient"
+    }
+  }
+}
